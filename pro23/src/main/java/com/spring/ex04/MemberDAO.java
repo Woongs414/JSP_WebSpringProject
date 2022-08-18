@@ -31,7 +31,7 @@ public class MemberDAO {
 		sqlMapper = getInstance(); //가상주소 매핑(db정도 등등)
 		SqlSession session = sqlMapper.openSession(); //실질적 주소연결(session객체에)
 		List<MemberVO> memlist = null;
-		memlist = session.selectList("mapper.member.selectMemberList");
+		memlist = session.selectList("mapper.member.selectAllMemberList");
 		return memlist;
 	}
 	
@@ -67,6 +67,7 @@ public class MemberDAO {
 		sqlMapper = getInstance();
 		SqlSession session = sqlMapper.openSession();
 		int result = session.update("mapper.member.updateMember",memberVO);
+		// update문 호출 시 SqlSession의 update()메서드를 이용한다.
 		session.commit();
 		return result;
 	}
@@ -75,6 +76,7 @@ public class MemberDAO {
 		SqlSession session = sqlMapper.openSession();
 		int result = 0;
 		result = session.delete("mapper.member.deleteMember",id);
+		// delete문을 실행하려면 SqlSession의 delete()메서드 이용해야한다.
 		session.commit();
 		return result;
 	}
@@ -82,12 +84,14 @@ public class MemberDAO {
 		sqlMapper=getInstance();
 		SqlSession session = sqlMapper.openSession();
 		List list = session.selectList("mapper.member.searchMember",memberVO);
+		//회원 검색창에서 전달된 이름과 나이 값을 memberVO에 설정하여 SQL문으로 전달
 		return list;
 	}
 	public List<MemberVO> foreachSelect(List nameList){
 		sqlMapper =getInstance();
 		SqlSession session = sqlMapper.openSession();
 		List list = session.selectList("mapper.member.foreachSelect",nameList);
+		//검색 이름이 저장된 nameList를 SQL문으로 전달합니다.
 		return list;
 	}
 	public int foreachInsert(List memList) {

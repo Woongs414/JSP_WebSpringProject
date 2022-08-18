@@ -112,9 +112,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
    </select>
    
    <insert id="foreachInsert" parameterType = "java.util.Map">
-   	<foreach item="item" collection="list" open="INSERT ALL" separator=" " close="SELECT * FROM DUAL">
-   		INTO t_member(id, pwd,name,email)
-   		VALUES 	(#{item.id},#{item.pwd},#{item.name}.#{item.email})
+     INSERT INTO 	t_member(id,pwd,name,email)
+     VALUES
+     <foreach item="item" collection="list" separator=",">
+     (#{item.id}, #{item.pwd}, #{item.name}, #{item.email})
    	</foreach>
    </insert>
    
