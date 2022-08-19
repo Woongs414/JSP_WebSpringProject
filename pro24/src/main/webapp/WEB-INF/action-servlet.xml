@@ -32,7 +32,7 @@
 class="org.springframework.web.servlet.mvc.multiaction.PropertiesMethodNameResolver">
 	<property name="mappings">
 		<props>
-			<prop key="/member/listMembers.do">listMembers</prop>
+			<prop key="/member/listMembers.do">listMembers</prop> <!-- key와 맞으면 membercontrollerimpl의 listMembers메서드 실행 -->
 			<prop key="/member/addMember.do">addMember</prop>
 			<prop key="/member/removeMember.do">removeMember</prop>
 			<prop key="/member/memberForm.do">form</prop>

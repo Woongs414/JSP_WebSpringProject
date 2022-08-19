@@ -34,12 +34,12 @@ request.setCharacterEncoding("UTF-8");
 		<td>${member.name }</td>
 		<td>${member.email }</td>
 		<td>${member.joinDate }</td>
-		<td><a href="${contextPath }/views/member/modMember.jsp">수정하기</a></td>
-		<td><a href="${contextPath }/mem4.do?action=deleteMember&id=${member.id}">삭제하기</a></td>
+		<td><a href="${contextPath }/views/member/modMember.do?id=${member.id}">수정하기</a></td>
+		<td><a href="${contextPath }/views/member/removeMember.do?id=${member.id}">삭제하기</a></td>
 		
 	</tr>
 </c:forEach>
 </table>
-<a href="${contextPath }/views/member/memberForm.jsp"><h1 style="text-align:center">회원가입</h1></a>
+<a href="${contextPath }/views/member/memberForm.do"><h1 style="text-align:center">회원가입</h1></a>
 </body>
 </html>

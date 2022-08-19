@@ -19,7 +19,7 @@ request.setCharacterEncoding("UTF-8");
 </style>
 </head>
 <body>
-	<form method="post" action="${contextPath }/mem4.do?action=insertMember1">
+	<form method="post" action="${contextPath }/mem4.do?action=insertMember">
 	<h1 class="text_center">회원 가입창</h1>
 	<table align="center">
 	<tr>
