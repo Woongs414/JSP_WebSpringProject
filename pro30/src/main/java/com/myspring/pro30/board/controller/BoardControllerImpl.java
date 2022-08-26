@@ -31,7 +31,7 @@ import com.myspring.pro30.member.vo.MemberVO;
 
 
 
-@Controller("boardController") //추상 클래스로 만들어도 되나?
+@Controller("boardController") 
 public class BoardControllerImpl implements BoardController {
 	private static final String ARTICLE_IMAGE_REPO= "C:\\board\\article_image";
 	@Autowired //의존성주입 애노테이션
@@ -104,7 +104,6 @@ public class BoardControllerImpl implements BoardController {
 	}
 	
 	//한개의 이미지 보여주기
-	@Override
 	@RequestMapping(value="/member/viewArticle.do" , method= RequestMethod.GET)
 	public ModelAndView removeMember(@RequestParam("articleNO") int articleNO,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -115,7 +114,17 @@ public class BoardControllerImpl implements BoardController {
 		return mav;
 	}
 	
-	
+//	//다중 이미지 보여주기
+//	@RequestMapping(value="/board/viewArticle.do", method = RequestMethod.GET)
+//	public ModelAndView viewArticle(@RequestParam("articleNO")int articleNO,
+//				HttpServletRequest request, HttpServletResponse response) throws Exception{
+//		String viewName = (String) request.getAttribute("viewName");
+//		Map articleMap = boardService.viewArticle(articleNO);
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName(viewName);
+//		mav.addObject("articleMap", articleMap);
+//		return mav;
+//	}
 	//한개 이미지 수정 가능
 	@RequestMapping(value="/board/modArticle.do",method=RequestMethod.POST)
 	@ResponseBody
@@ -240,7 +249,8 @@ public class BoardControllerImpl implements BoardController {
 		}
 		return imageFileName;
 	}
-		
+
+	
 	
 	}
 

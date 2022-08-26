@@ -9,7 +9,6 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -36,8 +35,8 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView listMembers(HttpServletRequest request, HttpServletResponse response) throws Exception{
 	//String viewName = getViewName(request);
 	String viewName = (String)request.getAttribute("viewName");
-	logger.info("viewname" + viewName);
-	logger.debug("viewName: " + viewName);
+//	logger.info("viewname" + viewName);
+//	logger.debug("viewName: " + viewName);
 	List membersList = memberService.listMembers();
 	ModelAndView mav = new ModelAndView(viewName);
 	mav.addObject("membersList", membersList);
@@ -49,6 +48,7 @@ public class MemberControllerImpl implements MemberController {
 	public ModelAndView addMember(@ModelAttribute("member") MemberVO member,
 			HttpServletRequest request, HttpServletResponse response) throws Exception{
 		request.setCharacterEncoding("UTF-8");
+		response.setContentType("html/text;charset=utf-8");
 		int result = 0;
 		result = memberService.addMember(member);
 		ModelAndView mav = new ModelAndView("redirect:/member/listMembers.do");
@@ -68,14 +68,13 @@ public class MemberControllerImpl implements MemberController {
 	
 	
 	//@RequestMapping(value="/member/*Form.do", method=RequestMethod.GET)
-	@RequestMapping(value={"/member/loginForm.do","/member/memberForm.do"}, method=RequestMethod.GET)
-	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String viewName = getViewName(request);
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName(viewName);
-		return mav;
-		 
-	}
+//	@RequestMapping(value={"/member/loginForm.do","/member/memberForm.do"}, method=RequestMethod.GET)
+//	public ModelAndView form(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		String viewName = getViewName(request);
+//		ModelAndView mav = new ModelAndView();
+//		mav.setViewName(viewName);
+//		return mav;
+//	}
 	
 	@Override
 	@RequestMapping(value = "/member/login.do", method=RequestMethod.POST)
@@ -88,7 +87,14 @@ public class MemberControllerImpl implements MemberController {
 		HttpSession session = request.getSession();
 		session.setAttribute("member", memberVO);
 		session.setAttribute("isLogOn", true);
-		mav.setViewName("redirect:/member/listMembers.do");
+//		mav.setViewName("redirect:/member/listMembers.do");
+		String action = (String)session.getAttribute("action");
+		session.removeAttribute("action");
+		if(action!=null) {
+			mav.setViewName("redirect:"+action);
+		}else {
+			mav.setViewName("redirect:/member/listMembers.do");
+		}
 	}else {
 		rAttr.addAttribute("result", "loginFailed");
 		mav.setViewName("redirect:/member/loginForm.do");
@@ -109,11 +115,15 @@ public class MemberControllerImpl implements MemberController {
 	
 	@RequestMapping(value ="/member/*Form.do", method=RequestMethod.GET)
 	private ModelAndView form(@RequestParam(value="result", required=false)String result,
+			@RequestParam(value="action", required=false) String action,
 			HttpServletRequest request,
 			HttpServletResponse response) throws Exception{
 		//String viewName = getViewName(request);
 		String viewName = (String)request.getAttribute("viewName");
+		HttpSession session = request.getSession();
+		session.setAttribute("action", action);
 		ModelAndView mav = new ModelAndView();
+		mav.addObject("result", result);
 		mav.setViewName(viewName);
 		return mav;
 	}

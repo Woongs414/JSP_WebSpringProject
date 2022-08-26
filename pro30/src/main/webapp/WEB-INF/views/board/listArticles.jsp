@@ -6,17 +6,18 @@
   <%
   request.setCharacterEncoding("utf-8");
   %>
-  <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
-  <c:set var="articlesList" value="${articlesMap.articlesList }"/>
+ <c:set var="contextPath" value="${pageContext.request.contextPath }"/>
+<%--   <c:set var="articlesList" value="${articlesMap.articlesList }"/>
   <c:set var="totArticles" value="${articlesMap.totArticles }"/>
   <c:set var="section" value="${articlesMap.section }"/>
-  <c:set var="pageNum" value="${articlesMap.pageNum }"/>
+  <c:set var="pageNum" value="${articlesMap.pageNum }"/> --%>
+  
 <!DOCTYPE html>
 <html>
 <head>
 <style>
-.no-uline{text-decoration:none;}
-.sel-page{text-decoration:none;color:red;}
+/* .no-uline{text-decoration:none;}
+.sel-page{text-decoration:none;color:red;} */
 .cls1{text-decoration:none;}
 .cls{text-decoration:none; font-size:30px;}
 
